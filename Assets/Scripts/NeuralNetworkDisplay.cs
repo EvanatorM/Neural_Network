@@ -45,6 +45,7 @@ public class NeuralNetworkDisplay : MonoBehaviour
     {
         
         int numLayers = neuralNet.GetNumLayers();
+
         /*
         // Generate Neurons
         for (int i = 0; i < numLayers; i++)
@@ -57,10 +58,49 @@ public class NeuralNetworkDisplay : MonoBehaviour
             {
                 GameObject newNeuron = Instantiate(neuronDisplayPrefab, newLayer.transform);
                 loadedNeuronDisplays.Add(new NeuronDisplay(newNeuron, neurons[n]));
-            }    
+            }
         }*/
 
-        // Generate First Layer
+        // Generate neurons
+        List<List<NeuronDisplay>> layers = new List<List<NeuronDisplay>>();
+        for (int i = 0; i < numLayers; i++)
+        {
+            NeuralNetwork.Neuron[] neurons = neuralNet.GetLayer(i);
+            List<NeuronDisplay> currentLayer = GenerateNeuronsInLayer(neurons);
+            layers.Add(currentLayer);
+        }
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(layerParent.GetComponent<RectTransform>());
+
+        // Generate connectors
+        for (int i = 0; i < numLayers - 1; i++)
+        {
+            for (int c = 0; c < layers[i].Count; c++)
+            {
+                for (int n = 0; n < layers[i + 1].Count; n++)
+                {
+                    // Calculate connector position
+                    Vector2 oldPos = layers[i][c].neuronObject.transform.position;
+                    Vector2 newPos = layers[i + 1][n].neuronObject.transform.position;
+                    Vector2 connectorPosition = (oldPos + newPos) * .5f;
+
+                    // Calculate connector rotation
+                    Vector3 direction = newPos - oldPos;
+                    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+                    // Calculate connector size
+                    float distance = direction.magnitude;
+                    Vector2 connectorSize = new Vector2(distance * 1.36f, 10f);
+
+                    GameObject newConnector = Instantiate(connectorPrefab, connectorPosition, Quaternion.Euler(0f, 0f, angle), canvas.transform);
+                    newConnector.GetComponent<RectTransform>().sizeDelta = connectorSize;
+
+                    loadedConnectors.Add(newConnector);
+                }
+            }
+        }
+
+        /*// Generate First Layer
         NeuralNetwork.Neuron[] firstLayerNeurons = neuralNet.GetLayer(0);
         List<NeuronDisplay> currentLayer = GenerateNeuronsInLayer(firstLayerNeurons);
 
@@ -81,7 +121,6 @@ public class NeuralNetworkDisplay : MonoBehaviour
                     Vector2 oldPos = currentLayer[c].neuronObject.transform.position;
                     Vector2 newPos = nextLayer[n].neuronObject.transform.position;
                     Vector2 connectorPosition = (oldPos + newPos) * .5f;
-                    Debug.Log(oldPos + ", " + newPos);
 
                     // Calculate connector rotation
                     Vector3 direction = newPos - oldPos;
@@ -97,7 +136,7 @@ public class NeuralNetworkDisplay : MonoBehaviour
                     loadedConnectors.Add(newConnector);
                 }
             }
-        }
+        }*/
 
         // Generate 
         // Go through layers

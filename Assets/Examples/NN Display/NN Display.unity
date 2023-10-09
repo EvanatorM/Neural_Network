@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571c84dada4c27a4a8fbe024c24a83ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layers: 0200000002000000
+  layers: 030000000500000002000000
   neuronDisplayPrefab: {fileID: 8796385360386193900, guid: df4fa9646c222044c94c30d03bd794bf, type: 3}
   layerDisplayPrefab: {fileID: 6841249908286511339, guid: eaa4d8bc23ad8bf42bcd1bb74622e33d, type: 3}
   connectorPrefab: {fileID: 6573319275074722013, guid: 7b53b3a8bb96b0b46b71face6723e2b1, type: 3}
