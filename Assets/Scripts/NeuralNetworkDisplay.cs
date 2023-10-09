@@ -41,6 +41,26 @@ public class NeuralNetworkDisplay : MonoBehaviour
         DisplayNeuralNet();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            double[] inputs = new double[layers[0]];
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                inputs[i] = 0.5;
+            }
+
+            double[] values = neuralNet.RunNeuralNetwork(inputs);
+            string valueText = "";
+            for (int i = 0; i < values.Length; i++)
+            {
+                valueText += values[i] + " ";
+            }    
+            Debug.Log(valueText);
+        }
+    }
+
     void DisplayNeuralNet()
     {
         
