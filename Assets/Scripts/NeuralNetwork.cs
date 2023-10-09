@@ -6,12 +6,22 @@ public class NeuralNetwork
 {
     public class Neuron
     {
+        public NeuronConnection[] neuronConnections;
 
+        public Neuron(NeuronConnection[] neuronConnections)
+        {
+            this.neuronConnections = neuronConnections;
+        }
     }
 
     public class NeuronConnection
     {
+        public Neuron nextNeuron;
 
+        public NeuronConnection(Neuron nextNeuron)
+        {
+            this.nextNeuron = nextNeuron;
+        }
     }
 
     Neuron[][] neurons;
