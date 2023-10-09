@@ -8,11 +8,14 @@ public class NeuralNetworkDisplay : MonoBehaviour
     [SerializeField] int[] layers;
 
     [Header("Display")]
-    [SerializeField] GameObject neuronDisplay;
+    [SerializeField] GameObject neuronDisplayPrefab;
+    [SerializeField] GameObject layerDisplayPrefab;
+    [SerializeField] Transform layerParent;
     [SerializeField] float minX, maxX, minY, maxY;
 
     NeuralNetwork neuralNet;
 
+    List<GameObject> loadedLayerDisplays = new List<GameObject>();
     List<GameObject> loadedNeuronDisplays = new List<GameObject>();
 
     void Start()
@@ -29,10 +32,12 @@ public class NeuralNetworkDisplay : MonoBehaviour
         for (int i = 0; i < numLayers; i++)
         {
             NeuralNetwork.Neuron[] neuron = neuralNet.GetLayer(i);
+            GameObject newLayer = Instantiate(layerDisplayPrefab, layerParent);
+            loadedLayerDisplays.Add(newLayer);
+
             for (int n = 0; n < neuron.Length; n++)
             {
-                Vector2 neuronPos = new Vector2(Mathf.Lerp(minX, maxX, i / (float)numLayers), Mathf.Lerp(minY, maxY, n / (float)neuron.Length));
-                GameObject newNeuron = Instantiate(neuronDisplay, neuronPos, Quaternion.identity, transform);
+                GameObject newNeuron = Instantiate(neuronDisplayPrefab, newLayer.transform);
                 loadedNeuronDisplays.Add(newNeuron);
             }    
         }
