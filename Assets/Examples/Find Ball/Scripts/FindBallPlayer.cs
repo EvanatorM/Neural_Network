@@ -5,6 +5,7 @@ using UnityEngine;
 public class FindBallPlayer : MLPlayer
 {
     [SerializeField] FindBallEnvironment environment;
+    [SerializeField] bool resetPlayerPos;
 
     List<FindBallEnvironment> env = new List<FindBallEnvironment>();
 
@@ -12,7 +13,7 @@ public class FindBallPlayer : MLPlayer
     {
         FindBallEnvironment newEnvironment = Instantiate(environment, transform);
         env.Add(newEnvironment);
-        newEnvironment.StartEnvironment(network);
+        newEnvironment.StartEnvironment(network, resetPlayerPos);
         newEnvironment.agent.AgentFinished += HandleAgentFinished;
 
         return newEnvironment.agent;

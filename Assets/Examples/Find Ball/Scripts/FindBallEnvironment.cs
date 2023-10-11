@@ -9,8 +9,12 @@ public class FindBallEnvironment : MonoBehaviour
 
     [SerializeField] float timeToLive = 10f;
 
-    public void StartEnvironment(NeuralNetwork network)
+    bool resetPlayerPos = true;
+
+    public void StartEnvironment(NeuralNetwork network, bool resetPlayerPos)
     {
+        this.resetPlayerPos = resetPlayerPos;
+
         agent.SetNetwork(network);
         agent.InitAgent(this, goal, timeToLive);
         RestartEnvironment();
@@ -18,7 +22,8 @@ public class FindBallEnvironment : MonoBehaviour
 
     public void RestartEnvironment()
     {
-        agent.transform.localPosition = Vector3.zero;
+        if (resetPlayerPos)
+            agent.transform.localPosition = Vector3.zero;
 
         do
         {

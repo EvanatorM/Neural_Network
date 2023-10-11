@@ -228,6 +228,97 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &995626281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 995626282}
+  - component: {fileID: 995626283}
+  m_Layer: 0
+  m_Name: ML Trainer Phase 2 Fine Tuning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &995626282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995626281}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1068410360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &995626283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995626281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1043d8d38994a4bb74900767ed7e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neuralNetLayers: 0400000002000000
+  agentAmount: 100
+  maxGenerations: 1000
+  gameSpeed: 10
+  agentPrefab: {fileID: 0}
+  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Find
+    Ball\Network\findball2
+  mutateRate: 0.01
+  weightMutationStrength: 0.10000000149011612
+  biasMutationStrength: 0.30000001192092896
+  environment: {fileID: 2062735004268524871, guid: ae5b2532ba6f1a6449edcac0e96acf33, type: 3}
+  resetPlayerPos: 0
+--- !u!1 &1068410359
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1068410360}
+  m_Layer: 0
+  m_Name: ML Trainers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1068410360
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068410359}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1105580273}
+  - {fileID: 1392304894}
+  - {fileID: 2029282503}
+  - {fileID: 995626282}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1105580271
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +330,7 @@ GameObject:
   - component: {fileID: 1105580273}
   - component: {fileID: 1105580274}
   m_Layer: 0
-  m_Name: ML Trainer
+  m_Name: ML Trainer Phase 1 Initial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,12 +344,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105580271}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1068410360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1105580274
 MonoBehaviour:
@@ -283,6 +374,63 @@ MonoBehaviour:
   weightMutationStrength: 0.5
   biasMutationStrength: 1
   environment: {fileID: 2062735004268524871, guid: ae5b2532ba6f1a6449edcac0e96acf33, type: 3}
+  resetPlayerPos: 1
+--- !u!1 &1392304893
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1392304894}
+  - component: {fileID: 1392304895}
+  m_Layer: 0
+  m_Name: ML Trainer Phase 1 Fine Tuning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1392304894
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392304893}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1068410360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1392304895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392304893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1043d8d38994a4bb74900767ed7e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neuralNetLayers: 0400000002000000
+  agentAmount: 100
+  maxGenerations: 1000
+  gameSpeed: 10
+  agentPrefab: {fileID: 0}
+  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Find
+    Ball\Network\findball
+  mutateRate: 0.01
+  weightMutationStrength: 0.10000000149011612
+  biasMutationStrength: 0.30000001192092896
+  environment: {fileID: 2062735004268524871, guid: ae5b2532ba6f1a6449edcac0e96acf33, type: 3}
+  resetPlayerPos: 1
 --- !u!1 &1420898590
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +523,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 52.47, y: 0, z: 0}
+--- !u!1 &1483962870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1483962871}
+  - component: {fileID: 1483962872}
+  m_Layer: 0
+  m_Name: ML Player Phase 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1483962871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483962870}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2037456879}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1483962872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483962870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a91771f914a164e9004fa155aa5163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentPrefab: {fileID: 0}
+  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Find
+    Ball\Network\findball2
+  environment: {fileID: 2062735004268524871, guid: ae5b2532ba6f1a6449edcac0e96acf33, type: 3}
+  resetPlayerPos: 0
 --- !u!1 &1764992020
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,12 +583,12 @@ GameObject:
   - component: {fileID: 1764992022}
   - component: {fileID: 1764992021}
   m_Layer: 0
-  m_Name: ML Player
+  m_Name: ML Player Phase 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1764992021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +605,7 @@ MonoBehaviour:
   networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Find
     Ball\Network\findball
   environment: {fileID: 2062735004268524871, guid: ae5b2532ba6f1a6449edcac0e96acf33, type: 3}
+  resetPlayerPos: 1
 --- !u!4 &1764992022
 Transform:
   m_ObjectHideFlags: 0
@@ -416,12 +614,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764992020}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2037456879}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1786864395
 GameObject:
@@ -517,12 +715,101 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &2029282502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2029282503}
+  - component: {fileID: 2029282504}
+  m_Layer: 0
+  m_Name: ML Trainer Phase 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2029282503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029282502}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1068410360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2029282504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029282502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1043d8d38994a4bb74900767ed7e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neuralNetLayers: 0400000002000000
+  agentAmount: 100
+  maxGenerations: 1000
+  gameSpeed: 10
+  agentPrefab: {fileID: 0}
+  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Find
+    Ball\Network\findball2
+  mutateRate: 0.1
+  weightMutationStrength: 0.5
+  biasMutationStrength: 1
+  environment: {fileID: 2062735004268524871, guid: ae5b2532ba6f1a6449edcac0e96acf33, type: 3}
+  resetPlayerPos: 0
+--- !u!1 &2037456878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2037456879}
+  m_Layer: 0
+  m_Name: ML Players
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2037456879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037456878}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1764992022}
+  - {fileID: 1483962871}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1420898593}
   - {fileID: 1786864397}
-  - {fileID: 1105580273}
-  - {fileID: 1764992022}
+  - {fileID: 1068410360}
+  - {fileID: 2037456879}
   - {fileID: 30645060}
