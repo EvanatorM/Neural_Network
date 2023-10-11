@@ -7,22 +7,32 @@ public class MLAgent : MonoBehaviour, IComparable<MLAgent>
 {
     public float fitness = 0;
 
-    private NeuralNetwork neuralNetwork;
+    protected NeuralNetwork neuralNetwork;
 
-    public event EventHandler AgentFinished;
-
-    public int CompareTo(MLAgent other)
-    {
-        return fitness.CompareTo(other.fitness);
-    }
+    public event EventHandler<float> AgentFinished;
 
     public void SetNetwork(NeuralNetwork network)
     {
         neuralNetwork = network;
     }
 
+    public virtual void FinishAgent()
+    {
+        AgentFinished?.Invoke(this, fitness);
+    }
+
     public NeuralNetwork GetNetwork()
     {
         return neuralNetwork;
+    }
+
+    public int CompareTo(MLAgent other)
+    {
+        if (fitness > other.fitness)
+            return -1;
+        else if (fitness < other.fitness)
+            return 1;
+        else
+            return 0;
     }
 }

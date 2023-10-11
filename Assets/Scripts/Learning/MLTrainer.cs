@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class MLTrainer : MonoBehaviour
 {
+    [Header("ML Trainer")]
     [SerializeField] protected int[] neuralNetLayers;
     [SerializeField] protected int agentAmount = 2;
     [SerializeField] protected int maxGenerations = 1000;
+    [SerializeField] protected float gameSpeed = 1f;
 
     [SerializeField] protected MLAgent agentPrefab;
 
@@ -20,8 +22,8 @@ public class MLTrainer : MonoBehaviour
     protected virtual void Start()
     {
         Initialize();
+
         StartGeneration();
-        EndGeneration();
     }
 
     protected virtual void Initialize()
@@ -38,7 +40,9 @@ public class MLTrainer : MonoBehaviour
         if (currentGeneration > maxGenerations)
             return;
 
+        Time.timeScale = gameSpeed;
         currentGeneration++;
+        Debug.Log("Starting generation: " + currentGeneration);
 
         InitAgents();
     }
@@ -50,7 +54,7 @@ public class MLTrainer : MonoBehaviour
 
         for (int i = 0; i < networks.Length; i++)
         {
-            agents.Add(SpawnAgent(networks[i]));
+            agents.Add(SpawnAgent(networks[i], i));
             agentFinished.Add(false);
         }
     }
@@ -63,15 +67,28 @@ public class MLTrainer : MonoBehaviour
         {
             networks[i] = new NeuralNetwork(agents[i].GetNetwork());
         }
+        Debug.Log("Hightest of generation: " + agents[0].fitness);
 
-        foreach (MLAgent agent in agents)
-            Destroy(agent);
-        agents.Clear();
+        KillAgents();
+
+        ModifyNetworks();
 
         StartGeneration();
     }
 
-    protected virtual MLAgent SpawnAgent(NeuralNetwork network)
+    protected virtual void KillAgents()
+    {
+        foreach (MLAgent agent in agents)
+            Destroy(agent);
+        agents.Clear();
+    }
+
+    protected virtual void ModifyNetworks()
+    {
+
+    }
+
+    protected virtual MLAgent SpawnAgent(NeuralNetwork network, int agentNum)
     {
         MLAgent newAgent = Instantiate(agentPrefab, transform);
         newAgent.SetNetwork(network);
@@ -79,7 +96,7 @@ public class MLTrainer : MonoBehaviour
         return newAgent;
     }
 
-    protected virtual void HandleAgentFinished(object sender, EventArgs e)
+    protected virtual void HandleAgentFinished(object sender, float e)
     {
         int agentIndex = agents.IndexOf((MLAgent)sender);
 

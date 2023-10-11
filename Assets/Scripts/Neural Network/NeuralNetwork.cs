@@ -13,12 +13,14 @@ public class NeuralNetwork
         public Neuron()
         {
             bias = Random.Range(-8f, 8f);
+            neuronConnections = new NeuronConnection[0];
         }
 
         public Neuron(Neuron neuronToCopy)
         {
             bias = neuronToCopy.bias;
             value = neuronToCopy.value;
+            neuronConnections = new NeuronConnection[neuronToCopy.neuronConnections.Length];
         }
 
         public void SetConnections(NeuronConnection[] neuronConnections)
@@ -152,6 +154,31 @@ public class NeuralNetwork
         return output;
     }
 
+    public void Mutate(float mutationRate, double weightMutationStrength, double biasMutationStrength)
+    {
+        // Init Random
+        System.Random random = new System.Random();
+        
+        // Run through the layers
+        for (int i = 0; i < neurons.Length; i++)
+        {
+            for (int n = 0; n < neurons[i].Length; n++)
+            {
+                // Mutate the bias
+                if (Random.value <= mutationRate)
+                    neurons[i][n].bias += (random.NextDouble() * (biasMutationStrength * 2) - biasMutationStrength);
+
+                // Run through all connections
+                for (int c = 0; c < neurons[i][n].neuronConnections.Length; c++)
+                {
+                    // Mutate the weight
+                    if (Random.value <= mutationRate)
+                        neurons[i][n].neuronConnections[c].weight = System.Math.Clamp(neurons[i][n].neuronConnections[c].weight + (random.NextDouble() * (weightMutationStrength * 2) - weightMutationStrength), -1, 1);
+                }
+            }
+        }
+    }
+
     public int GetNumLayers()
     {
         return neurons.Length;
@@ -170,5 +197,20 @@ public class NeuralNetwork
     public int[] GetLayers()
     {
         return layers;
+    }
+
+    public string[] OutputNetwork()
+    {
+        List<string> output = new List<string>();
+
+        string layersString = "";
+        for (int i = 0; i < layers.Length; i++)
+        {
+            layersString += layers[i] + ",";
+        }
+
+        output.Add(layersString);
+
+
     }
 }
