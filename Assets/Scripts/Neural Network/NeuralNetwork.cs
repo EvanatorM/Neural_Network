@@ -200,7 +200,7 @@ public class NeuralNetwork
                 sum += neurons[i][n].bias;
 
                 // Calculate value with sigmoid function
-                double value = 1 / (1 + System.Math.Pow(System.Math.E, -sum));
+                double value = HyperbolicTangentActivation(sum);
 
                 // Set neuron value
                 neurons[i][n].value = value;
@@ -216,6 +216,17 @@ public class NeuralNetwork
         }
 
         return output;
+    }
+
+    double SigmoidActivation(double x)
+    {
+        return 1 / (1 + System.Math.Pow(System.Math.E, -x));
+    }
+
+    double HyperbolicTangentActivation(double x)
+    {
+        return (System.Math.Pow(System.Math.E, x) - System.Math.Pow(System.Math.E, -x)) /
+            (System.Math.Pow(System.Math.E, x) + System.Math.Pow(System.Math.E, -x));
     }
 
     public void Mutate(float mutationRate, double weightMutationStrength, double biasMutationStrength)

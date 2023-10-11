@@ -63,8 +63,8 @@ public class FindBallAgent : MLAgent
         double[] outputs = neuralNetwork.RunNeuralNetwork(inputs);
 
         Vector3 vel = rb.velocity;
-        vel.x = ((float)outputs[0] - 0.5f) * speed;
-        vel.z = ((float)outputs[1] - 0.5f) * speed;
+        vel.x = (float)outputs[0] * speed;
+        vel.z = (float)outputs[1] * speed;
 
         rb.velocity = vel;
     }
