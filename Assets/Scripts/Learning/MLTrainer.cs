@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class MLTrainer : MonoBehaviour
@@ -13,9 +14,13 @@ public class MLTrainer : MonoBehaviour
 
     [SerializeField] protected MLAgent agentPrefab;
 
+    [SerializeField] protected string networkSaveLocation;
+
     protected NeuralNetwork[] networks;
     protected List<MLAgent> agents;
     protected List<bool> agentFinished;
+    protected float bestFitness = 0;
+    protected float bestFitnessThisGeneration = 0;
 
     protected int currentGeneration;
 
@@ -28,10 +33,25 @@ public class MLTrainer : MonoBehaviour
 
     protected virtual void Initialize()
     {
-        networks = new NeuralNetwork[agentAmount];
-        for (int i = 0; i < agentAmount; i++)
+        if (File.Exists(networkSaveLocation))
         {
-            networks[i] = new NeuralNetwork(neuralNetLayers);
+            string[] netString = File.ReadAllLines(networkSaveLocation);
+            bestFitness = NeuralNetwork.GetFitnessFromFile(netString);
+            NeuralNetwork network = new NeuralNetwork(netString);
+
+            networks = new NeuralNetwork[agentAmount];
+            for (int i = 0; i < agentAmount; i++)
+            {
+                networks[i] = new NeuralNetwork(network);
+            }
+        }
+        else
+        {
+            networks = new NeuralNetwork[agentAmount];
+            for (int i = 0; i < agentAmount; i++)
+            {
+                networks[i] = new NeuralNetwork(neuralNetLayers);
+            }
         }
     }
 
@@ -63,15 +83,22 @@ public class MLTrainer : MonoBehaviour
     {
         agents.Sort();
 
+        bestFitnessThisGeneration = agents[0].fitness;
+
         for (int i = 0; i < agents.Count; i++)
         {
             networks[i] = new NeuralNetwork(agents[i].GetNetwork());
         }
-        Debug.Log("Hightest of generation: " + agents[0].fitness);
+        Debug.Log("Hightest of generation: " + bestFitnessThisGeneration + ", Highest Overall: " + bestFitness);
 
         KillAgents();
 
+        SaveNetwork();
+
         ModifyNetworks();
+
+        if (agents[0].fitness > bestFitness)
+            bestFitness = agents[0].fitness;
 
         StartGeneration();
     }
@@ -85,7 +112,17 @@ public class MLTrainer : MonoBehaviour
 
     protected virtual void ModifyNetworks()
     {
+        
+    }
 
+    protected virtual void SaveNetwork()
+    {
+        if (bestFitnessThisGeneration > bestFitness)
+        {
+            Debug.Log("Saving new highest");
+            string[] output = networks[0].OutputNetwork(bestFitnessThisGeneration);
+            File.WriteAllLines(networkSaveLocation, output);
+        }
     }
 
     protected virtual MLAgent SpawnAgent(NeuralNetwork network, int agentNum)

@@ -11,6 +11,10 @@ public class MLGeneticAlgTrainer : MLTrainer
 
     protected override void ModifyNetworks()
     {
+        //string[] output = networks[0].OutputNetwork(bestFitness);
+        //foreach (string s in output)
+        //    Debug.Log(s);
+
         int halfNetworks = networks.Length / 2;
 
         for (int i = 0; i < halfNetworks; i++)

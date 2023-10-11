@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class NeuralNetwork
 {
+    [System.Serializable]
     public class Neuron
     {
         public NeuronConnection[] neuronConnections;
@@ -12,7 +14,6 @@ public class NeuralNetwork
 
         public Neuron()
         {
-            bias = Random.Range(-8f, 8f);
             neuronConnections = new NeuronConnection[0];
         }
 
@@ -23,12 +24,25 @@ public class NeuralNetwork
             neuronConnections = new NeuronConnection[neuronToCopy.neuronConnections.Length];
         }
 
+        public Neuron(NeuronSave neuronToCopy)
+        {
+            bias = neuronToCopy.bias;
+            value = 0;
+            neuronConnections = new NeuronConnection[neuronToCopy.neuronConnections.Length];
+        }
+
+        public void Randomize()
+        {
+            bias = Random.Range(-8f, 8f);
+        }
+
         public void SetConnections(NeuronConnection[] neuronConnections)
         {
             this.neuronConnections = neuronConnections;
         }
     }
 
+    [System.Serializable]
     public class NeuronConnection
     {
         public Neuron previousNeuron;
@@ -37,6 +51,10 @@ public class NeuralNetwork
         public NeuronConnection(Neuron previousNeuron)
         {
             this.previousNeuron = previousNeuron;
+        }
+
+        public void Randomize()
+        {
             weight = Random.Range(-1f, 1f);
         }
 
@@ -44,6 +62,12 @@ public class NeuralNetwork
         {
             this.previousNeuron = previousNeuron;
             weight = connectionToCopy.weight;
+        }
+
+        public NeuronConnection(Neuron previousNeuron, double weight)
+        {
+            this.previousNeuron = previousNeuron;
+            this.weight = weight;
         }
     }
 
@@ -62,6 +86,7 @@ public class NeuralNetwork
             for (int n = 0; n < layers[i]; n++)
             {
                 neurons[i][n] = new Neuron();
+                neurons[i][n].Randomize();
 
                 if (i == 0)
                     continue;
@@ -71,6 +96,7 @@ public class NeuralNetwork
                 for (int p = 0; p < layers[i - 1]; p++)
                 {
                     connections[p] = new NeuronConnection(neurons[i - 1][p]);
+                    connections[p].Randomize();
                 }
 
                 neurons[i][n].neuronConnections = connections;
@@ -91,6 +117,44 @@ public class NeuralNetwork
             for (int n = 0; n < layers[i]; n++)
             {
                 Neuron neuronToCopy = networkToCopy.GetNeuron(i, n);
+                neurons[i][n] = new Neuron(neuronToCopy);
+
+                if (i == 0)
+                    continue;
+
+                // Create neuron connections
+                NeuronConnection[] connections = new NeuronConnection[layers[i - 1]];
+                for (int p = 0; p < layers[i - 1]; p++)
+                {
+                    connections[p] = new NeuronConnection(neurons[i - 1][p], neuronToCopy.neuronConnections[p]);
+                }
+
+                neurons[i][n].neuronConnections = connections;
+            }
+        }
+    }
+
+    public NeuralNetwork(string[] networkToCopy)
+    {
+        // Line 2: layers
+        string[] layerStrings = SeparateByComma(networkToCopy[1]);
+        layers = new int[layerStrings.Length];
+        for (int i = 0; i < layers.Length; i++)
+            layers[i] = int.Parse(layerStrings[i]);
+
+        // Neurons
+        neurons = new Neuron[layers.Length][];
+
+        // Create neurons
+        int copyIndex = 1;
+        for (int i = 0; i < layers.Length; i++)
+        {
+            neurons[i] = new Neuron[layers[i]];
+            for (int n = 0; n < layers[i]; n++)
+            {
+                copyIndex++;
+
+                NeuronSave neuronToCopy = JsonUtility.FromJson<NeuronSave>(networkToCopy[copyIndex]);
                 neurons[i][n] = new Neuron(neuronToCopy);
 
                 if (i == 0)
@@ -199,18 +263,73 @@ public class NeuralNetwork
         return layers;
     }
 
-    public string[] OutputNetwork()
+    [System.Serializable]
+    public struct NeuronSave
+    {
+        public double[] neuronConnections;
+        public double bias;
+
+        public NeuronSave(Neuron neuron)
+        {
+            neuronConnections = new double[neuron.neuronConnections.Length];
+            for (int i = 0; i < neuronConnections.Length; i++)
+                neuronConnections[i] = neuron.neuronConnections[i].weight;
+            bias = neuron.bias;
+        }
+    }
+
+    public string[] OutputNetwork(float fitness)
     {
         List<string> output = new List<string>();
 
-        string layersString = "";
+        // Line 1: fitness
+        output.Add(fitness.ToString());
+
+        // Line 2: layers
+        string line2 = "";
         for (int i = 0; i < layers.Length; i++)
         {
-            layersString += layers[i] + ",";
+            line2 += layers[i] + ",";
+        }
+        output.Add(line2);
+
+        // Rest of the lines: neurons
+        for (int l = 0; l < layers.Length; l++)
+        {
+            for (int n = 0; n < neurons[l].Length; n++)
+            {
+                NeuronSave neuronSave = new NeuronSave(neurons[l][n]);
+                output.Add(JsonUtility.ToJson(neuronSave));
+            }
         }
 
-        output.Add(layersString);
+        return output.ToArray();
+    }
 
+    public static float GetFitnessFromFile(string[] fileContents)
+    {
+        return float.Parse(fileContents[0]);
+    }
 
+    public string[] SeparateByComma(string stringToSeparate)
+    {
+        List<string> separated = new List<string>();
+
+        string currentString = "";
+        for (int c = 0; c < stringToSeparate.Length; c++)
+        {
+
+            if (stringToSeparate[c] == ',')
+            {
+                separated.Add(currentString);
+                currentString = "";
+            }
+            else
+            {
+                currentString += stringToSeparate[c];
+            }
+        }
+
+        return separated.ToArray();
     }
 }
