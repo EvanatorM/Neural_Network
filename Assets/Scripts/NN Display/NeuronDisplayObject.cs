@@ -30,6 +30,11 @@ public class NeuronDisplayObject : MonoBehaviour
 
         valueText.text = neuron.value.ToString("0.00");
         fillImage.fillAmount = (float)neuron.value;
+
+        if (Input.GetKey(KeyCode.B))
+        {
+            valueText.text = neuron.bias.ToString("0.00");
+        }
     }
 
     public void SliderValueChanged(float value)

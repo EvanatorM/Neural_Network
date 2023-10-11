@@ -12,7 +12,13 @@ public class NeuralNetwork
 
         public Neuron()
         {
-            bias = Random.Range(-1f, 1f);
+            bias = Random.Range(-8f, 8f);
+        }
+
+        public Neuron(Neuron neuronToCopy)
+        {
+            bias = neuronToCopy.bias;
+            value = neuronToCopy.value;
         }
 
         public void SetConnections(NeuronConnection[] neuronConnections)
@@ -31,13 +37,21 @@ public class NeuralNetwork
             this.previousNeuron = previousNeuron;
             weight = Random.Range(-1f, 1f);
         }
+
+        public NeuronConnection(Neuron previousNeuron, NeuronConnection connectionToCopy)
+        {
+            this.previousNeuron = previousNeuron;
+            weight = connectionToCopy.weight;
+        }
     }
 
     Neuron[][] neurons;
+    int[] layers;
 
     public NeuralNetwork(int[] layers)
     {
         neurons = new Neuron[layers.Length][];
+        this.layers = layers;
 
         // Create neurons
         for (int i = 0; i < layers.Length; i++)
@@ -55,6 +69,36 @@ public class NeuralNetwork
                 for (int p = 0; p < layers[i - 1]; p++)
                 {
                     connections[p] = new NeuronConnection(neurons[i - 1][p]);
+                }
+
+                neurons[i][n].neuronConnections = connections;
+            }
+        }
+    }
+
+    public NeuralNetwork(NeuralNetwork networkToCopy)
+    {
+        layers = networkToCopy.GetLayers();
+
+        neurons = new Neuron[layers.Length][];
+
+        // Create neurons
+        for (int i = 0; i < layers.Length; i++)
+        {
+            neurons[i] = new Neuron[layers[i]];
+            for (int n = 0; n < layers[i]; n++)
+            {
+                Neuron neuronToCopy = networkToCopy.GetNeuron(i, n);
+                neurons[i][n] = new Neuron(neuronToCopy);
+
+                if (i == 0)
+                    continue;
+
+                // Create neuron connections
+                NeuronConnection[] connections = new NeuronConnection[layers[i - 1]];
+                for (int p = 0; p < layers[i - 1]; p++)
+                {
+                    connections[p] = new NeuronConnection(neurons[i - 1][p], neuronToCopy.neuronConnections[p]);
                 }
 
                 neurons[i][n].neuronConnections = connections;
@@ -116,5 +160,15 @@ public class NeuralNetwork
     public Neuron[] GetLayer(int layer)
     {
         return neurons[layer];
+    }
+    
+    public Neuron GetNeuron(int layer, int neuron)
+    {
+        return neurons[layer][neuron];
+    }
+
+    public int[] GetLayers()
+    {
+        return layers;
     }
 }
