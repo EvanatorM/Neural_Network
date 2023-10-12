@@ -13,7 +13,7 @@ public class FindBallPlayer : MLPlayer
     {
         FindBallEnvironment newEnvironment = Instantiate(environment, transform);
         env.Add(newEnvironment);
-        newEnvironment.StartEnvironment(network, resetPlayerPos);
+        newEnvironment.StartEnvironment(network, resetPlayerPos, false);
         newEnvironment.agent.AgentFinished += HandleAgentFinished;
 
         return newEnvironment.agent;

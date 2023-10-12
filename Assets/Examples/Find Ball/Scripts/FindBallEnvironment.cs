@@ -11,12 +11,12 @@ public class FindBallEnvironment : MonoBehaviour
 
     bool resetPlayerPos = true;
 
-    public void StartEnvironment(NeuralNetwork network, bool resetPlayerPos)
+    public void StartEnvironment(NeuralNetwork network, bool resetPlayerPos, bool training)
     {
         this.resetPlayerPos = resetPlayerPos;
 
         agent.SetNetwork(network);
-        agent.InitAgent(this, goal, timeToLive);
+        agent.InitAgent(this, goal, timeToLive, training);
         RestartEnvironment();
     }
 

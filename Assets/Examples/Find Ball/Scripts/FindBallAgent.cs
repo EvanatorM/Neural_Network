@@ -13,8 +13,9 @@ public class FindBallAgent : MLAgent
     bool init = false;
 
     float timeRemaining;
+    bool training = true;
 
-    public void InitAgent(FindBallEnvironment environment, GameObject goal, float timeRemaining)
+    public void InitAgent(FindBallEnvironment environment, GameObject goal, float timeRemaining, bool training)
     {
         rb = GetComponent<Rigidbody>();
 
@@ -23,6 +24,7 @@ public class FindBallAgent : MLAgent
         fitness = 0;
 
         this.timeRemaining = timeRemaining;
+        this.training = training;
     }
 
     public void ContinueAgent()
@@ -35,9 +37,12 @@ public class FindBallAgent : MLAgent
         if (!init)
             return;
 
-        timeRemaining -= Time.deltaTime;
-        if (timeRemaining <= 0)
-            FinishAgent();
+        if (training)
+        {
+            timeRemaining -= Time.deltaTime;
+            if (timeRemaining <= 0)
+                FinishAgent();
+        }
 
         if (transform.position.y < -1)
         {

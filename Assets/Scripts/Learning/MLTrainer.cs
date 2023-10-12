@@ -37,6 +37,7 @@ public class MLTrainer : MonoBehaviour
         {
             string[] netString = File.ReadAllLines(networkSaveLocation);
             bestFitness = NeuralNetwork.GetFitnessFromFile(netString);
+            currentGeneration = NeuralNetwork.GetGenerationFromFile(netString);
             NeuralNetwork network = new NeuralNetwork(netString);
 
             networks = new NeuralNetwork[agentAmount];
@@ -47,6 +48,7 @@ public class MLTrainer : MonoBehaviour
         }
         else
         {
+            bestFitness = float.MinValue;
             networks = new NeuralNetwork[agentAmount];
             for (int i = 0; i < agentAmount; i++)
             {
@@ -120,7 +122,7 @@ public class MLTrainer : MonoBehaviour
         if (bestFitnessThisGeneration > bestFitness)
         {
             Debug.Log("Saving new highest");
-            string[] output = networks[0].OutputNetwork(bestFitnessThisGeneration);
+            string[] output = networks[0].OutputNetwork(bestFitnessThisGeneration, currentGeneration);
             File.WriteAllLines(networkSaveLocation, output);
         }
     }

@@ -13,7 +13,7 @@ public class FindBallTrainer : MLGeneticAlgTrainer
     {
         FindBallEnvironment newEnvironment = Instantiate(environment, transform);
         env.Add(newEnvironment);
-        newEnvironment.StartEnvironment(network, resetPlayerPos);
+        newEnvironment.StartEnvironment(network, resetPlayerPos, true);
         newEnvironment.agent.AgentFinished += HandleAgentFinished;
 
         return newEnvironment.agent;

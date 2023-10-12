@@ -136,8 +136,8 @@ public class NeuralNetwork
 
     public NeuralNetwork(string[] networkToCopy)
     {
-        // Line 2: layers
-        string[] layerStrings = SeparateByComma(networkToCopy[1]);
+        // Line 3: layers
+        string[] layerStrings = SeparateByComma(networkToCopy[2]);
         layers = new int[layerStrings.Length];
         for (int i = 0; i < layers.Length; i++)
             layers[i] = int.Parse(layerStrings[i]);
@@ -146,7 +146,7 @@ public class NeuralNetwork
         neurons = new Neuron[layers.Length][];
 
         // Create neurons
-        int copyIndex = 1;
+        int copyIndex = 2;
         for (int i = 0; i < layers.Length; i++)
         {
             neurons[i] = new Neuron[layers[i]];
@@ -289,14 +289,17 @@ public class NeuralNetwork
         }
     }
 
-    public string[] OutputNetwork(float fitness)
+    public string[] OutputNetwork(float fitness, int generation)
     {
         List<string> output = new List<string>();
 
         // Line 1: fitness
         output.Add(fitness.ToString());
 
-        // Line 2: layers
+        // Line 2: Generation
+        output.Add(generation.ToString());
+
+        // Line 3: layers
         string line2 = "";
         for (int i = 0; i < layers.Length; i++)
         {
@@ -320,6 +323,11 @@ public class NeuralNetwork
     public static float GetFitnessFromFile(string[] fileContents)
     {
         return float.Parse(fileContents[0]);
+    }
+
+    public static int GetGenerationFromFile(string[] fileContents)
+    {
+        return int.Parse(fileContents[1]);
     }
 
     public string[] SeparateByComma(string stringToSeparate)
