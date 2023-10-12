@@ -288,7 +288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &815560898
 Transform:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f32e1e79cb8604394557b58a1a97bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neuralNetLayers: 0a0000000a00000009000000
+  neuralNetLayers: 0a000000090000000c0000000f00000009000000
   agentAmount: 100
   maxGenerations: 1000
   gameSpeed: 1
@@ -510,7 +510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2062831175
 Transform:
   m_ObjectHideFlags: 0
