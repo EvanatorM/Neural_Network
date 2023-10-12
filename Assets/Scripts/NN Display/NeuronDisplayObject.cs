@@ -29,7 +29,7 @@ public class NeuronDisplayObject : MonoBehaviour
             return;
 
         valueText.text = neuron.value.ToString("0.00");
-        fillImage.fillAmount = (float)neuron.value;
+        fillImage.fillAmount = ((float)neuron.value * .5f) + .5f;
 
         if (Input.GetKey(KeyCode.B))
         {
@@ -42,7 +42,7 @@ public class NeuronDisplayObject : MonoBehaviour
         if (!input)
             return;
 
-        neuron.value = value;
+        neuron.value = (value - 0.5f) * 2f;
         nndisplay.RunNeuralNet();
     }
 }

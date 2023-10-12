@@ -119,6 +119,7 @@ public class MLTrainer : MonoBehaviour
         foreach (MLAgent agent in agents)
             Destroy(agent.gameObject);
         agents.Clear();
+        agentFinished.Clear();
     }
 
     protected virtual void ModifyNetworks()

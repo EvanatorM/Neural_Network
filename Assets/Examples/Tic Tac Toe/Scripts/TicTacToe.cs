@@ -66,6 +66,12 @@ public class TicTacToe : MonoBehaviour
 
     void StartNextTurn()
     {
+        StartCoroutine(DelayStartNextTurn());
+    }
+
+    IEnumerator DelayStartNextTurn()
+    {
+        yield return null;
         int[] mask = new int[9];
         for (int i = 0; i < mask.Length; i++)
         {
@@ -108,18 +114,18 @@ public class TicTacToe : MonoBehaviour
         else if (results == 0) // Tie
         {
             if(!player1Player)
-                agent1.fitness += 1;
+                agent1.fitness += 2;
             if (!player2Player)
-                agent2.fitness += 1;
+                agent2.fitness += 2;
             RestartTicTacToe();
             RestartTicTacToe();
         }
         else if (results == 1) // Player 1 Wins
         {
             if (!player1Player)
-                agent1.fitness += 2;
+                agent1.fitness += 1;
             if (!player2Player)
-                agent2.fitness -= 2;
+                agent2.fitness -= 1;
             RestartTicTacToe();
         }
         else if (results == 2) // Player 2 Wins

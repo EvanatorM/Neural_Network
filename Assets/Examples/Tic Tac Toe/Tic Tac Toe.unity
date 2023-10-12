@@ -215,6 +215,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &573790288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 573790290}
+  - component: {fileID: 573790289}
+  m_Layer: 0
+  m_Name: TTT Trainer Manual
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &573790289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573790288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9f32e1e79cb8604394557b58a1a97bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  neuralNetLayers: 0a00000009000000
+  agentAmount: 2
+  maxGenerations: 1000
+  gameSpeed: 1
+  agentPrefab: {fileID: 8154034271615895637, guid: 68e00790b2082604481aea25bd25bd95, type: 3}
+  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Tic
+    Tac Toe\Network\ttt
+  mutateRate: 0.1
+  weightMutationStrength: 0.5
+  biasMutationStrength: 1
+  tttPrefab: {fileID: 6584900810055130899, guid: b002a586babd8e34ead2ab2b1688513d, type: 3}
+  roundsPerGeneration: 3
+  playerTrained: 1
+--- !u!4 &573790290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573790288}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &815560897
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,8 +316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9f32e1e79cb8604394557b58a1a97bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neuralNetLayers: 0a00000009000000
-  agentAmount: 2
+  neuralNetLayers: 0a0000000a00000009000000
+  agentAmount: 100
   maxGenerations: 1000
   gameSpeed: 1
   agentPrefab: {fileID: 8154034271615895637, guid: 68e00790b2082604481aea25bd25bd95, type: 3}
@@ -271,6 +328,7 @@ MonoBehaviour:
   biasMutationStrength: 1
   tttPrefab: {fileID: 6584900810055130899, guid: b002a586babd8e34ead2ab2b1688513d, type: 3}
   roundsPerGeneration: 10
+  playerTrained: 0
 --- !u!1 &878237881
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,5 +549,6 @@ SceneRoots:
   - {fileID: 443478816}
   - {fileID: 878237884}
   - {fileID: 815560898}
+  - {fileID: 573790290}
   - {fileID: 2062831175}
   - {fileID: 1093319503}
