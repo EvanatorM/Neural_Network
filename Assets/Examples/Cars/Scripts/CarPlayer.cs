@@ -7,6 +7,8 @@ public class CarPlayer : MLPlayer
     [SerializeField] Transform startPos;
     [SerializeField] GameObject[] goals;
 
+    [SerializeField] bool accelerateMode;
+
     public bool IsNextGoal(GameObject goal, int currentGoal)
     {
         for (int i = 0; i < goals.Length; i++)
@@ -24,7 +26,7 @@ public class CarPlayer : MLPlayer
     {
         MLAgent newAgent = Instantiate(agentPrefab, startPos.position, startPos.rotation, transform);
         newAgent.SetNetwork(network);
-        ((CarAgent)newAgent).InitAgent(this, 0, false, goals.Length);
+        ((CarAgent)newAgent).InitAgent(this, 0, false, goals.Length, accelerateMode);
         newAgent.AgentFinished += HandleAgentFinished;
         return newAgent;
     }

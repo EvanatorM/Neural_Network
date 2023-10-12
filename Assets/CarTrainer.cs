@@ -8,6 +8,7 @@ public class CarTrainer : MLGeneticAlgTrainer
     [SerializeField] GameObject[] goals;
 
     [SerializeField] float timeToLive = 10f;
+    [SerializeField] bool accelerateMode;
 
     public bool IsNextGoal(GameObject goal, int currentGoal)
     {
@@ -26,7 +27,7 @@ public class CarTrainer : MLGeneticAlgTrainer
     {
         MLAgent newAgent = Instantiate(agentPrefab, startPos.position, startPos.rotation, transform);
         newAgent.SetNetwork(network);
-        ((CarAgent)newAgent).InitAgent(this, timeToLive, true, goals.Length);
+        ((CarAgent)newAgent).InitAgent(this, timeToLive, true, goals.Length, accelerateMode);
         newAgent.AgentFinished += HandleAgentFinished;
         return newAgent;
     }

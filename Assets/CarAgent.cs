@@ -5,6 +5,7 @@ using UnityEngine;
 public class CarAgent : MLAgent
 {
     [SerializeField] float speed = 10f;
+    [SerializeField] float acceleration = 10f;
     [SerializeField] float rotateSpeed = 10f;
 
     [SerializeField] int numRaycasts = 5;
@@ -19,10 +20,11 @@ public class CarAgent : MLAgent
     float timeToLive;
     bool training;
     int numGoals;
+    bool accelerationMode;
 
     int currentGoal = 0;
 
-    public void InitAgent(CarTrainer trainer, float timeToLive, bool training, int numGoals)
+    public void InitAgent(CarTrainer trainer, float timeToLive, bool training, int numGoals, bool accelerationMode)
     {
         rb = GetComponent<Rigidbody>();
 
@@ -31,11 +33,14 @@ public class CarAgent : MLAgent
         this.timeToLive = timeToLive;
         this.training = training;
         this.numGoals = numGoals;
+        this.accelerationMode = accelerationMode;
+        if (accelerationMode)
+            speed = 0;
 
         init = true;
     }
 
-    public void InitAgent(CarPlayer player, float timeToLive, bool training, int numGoals)
+    public void InitAgent(CarPlayer player, float timeToLive, bool training, int numGoals, bool accelerationMode)
     {
         rb = GetComponent<Rigidbody>();
 
@@ -44,6 +49,9 @@ public class CarAgent : MLAgent
         this.timeToLive = timeToLive;
         this.training = training;
         this.numGoals = numGoals;
+        this.accelerationMode = accelerationMode;
+        if (accelerationMode)
+            speed = 0;
 
         init = true;
     }
@@ -68,17 +76,31 @@ public class CarAgent : MLAgent
             return;
 
         // Get inputs from neural network
-        double[] inputs = new double[numRaycasts];
+        double[] inputs;
+        if (accelerationMode)
+            inputs = new double[numRaycasts + 1];
+        else
+            inputs = new double[numRaycasts];
         float[] distances = GetRaycasts();
-        for (int i = 0; i < inputs.Length; i++)
+        for (int i = 0; i < numRaycasts; i++)
         {
             inputs[i] = distances[i];
         }
 
+        if (accelerationMode)
+            inputs[numRaycasts] = speed;
+
         double[] outputs = neuralNetwork.RunNeuralNetwork(inputs);
 
         transform.Rotate(Vector3.up, (float)outputs[1] * rotateSpeed * Time.deltaTime);
-        rb.velocity = (float)outputs[0] * speed * -transform.right;
+
+        if (accelerationMode)
+        {
+            speed += (float)outputs[0] * acceleration * Time.deltaTime;
+            rb.velocity = speed * -transform.right;
+        }   
+        else
+            rb.velocity = (float)outputs[0] * speed * -transform.right;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -125,7 +147,7 @@ public class CarAgent : MLAgent
             Physics.Raycast(ray, out RaycastHit hit, rayDistance, 1 << 7);
             distances[i] = hit.distance;
             if (hit.collider == null)
-                distances[i] = 6;
+                distances[i] = rayDistance + 1;
         }
 
         return distances;
