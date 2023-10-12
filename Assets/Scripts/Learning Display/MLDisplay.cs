@@ -13,6 +13,9 @@ public class MLDisplay : MonoBehaviour
 
     void Awake()
     {
+        if (FindAnyObjectByType<MLTrainer>() == null)
+            return;
+
         MLTrainer trainer = FindObjectOfType<MLTrainer>();
         trainer.GenerationStarted += HandleGenerationStarted;
         trainer.HighestFitnessChanged += HandleHighestFitnessChanged;
