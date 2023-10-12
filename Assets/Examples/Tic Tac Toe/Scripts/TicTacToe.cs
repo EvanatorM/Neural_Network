@@ -107,14 +107,19 @@ public class TicTacToe : MonoBehaviour
         }
         else if (results == 0) // Tie
         {
+            if(!player1Player)
+                agent1.fitness += 1;
+            if (!player2Player)
+                agent2.fitness += 1;
+            RestartTicTacToe();
             RestartTicTacToe();
         }
         else if (results == 1) // Player 1 Wins
         {
             if (!player1Player)
-                agent1.fitness += 1;
+                agent1.fitness += 2;
             if (!player2Player)
-                agent2.fitness -= 1;
+                agent2.fitness -= 2;
             RestartTicTacToe();
         }
         else if (results == 2) // Player 2 Wins
