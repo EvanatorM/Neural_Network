@@ -13,14 +13,16 @@ public class CarAgent : MLAgent
     Rigidbody rb;
 
     CarTrainer carTrainer;
+    CarPlayer carPlayer;
 
     bool init = false;
     float timeToLive;
     bool training;
+    int numGoals;
 
     int currentGoal = 0;
 
-    public void InitAgent(CarTrainer trainer, float timeToLive, bool training)
+    public void InitAgent(CarTrainer trainer, float timeToLive, bool training, int numGoals)
     {
         rb = GetComponent<Rigidbody>();
 
@@ -28,6 +30,20 @@ public class CarAgent : MLAgent
 
         this.timeToLive = timeToLive;
         this.training = training;
+        this.numGoals = numGoals;
+
+        init = true;
+    }
+
+    public void InitAgent(CarPlayer player, float timeToLive, bool training, int numGoals)
+    {
+        rb = GetComponent<Rigidbody>();
+
+        carPlayer = player;
+
+        this.timeToLive = timeToLive;
+        this.training = training;
+        this.numGoals = numGoals;
 
         init = true;
     }
@@ -67,16 +83,33 @@ public class CarAgent : MLAgent
 
     void OnCollisionEnter(Collision collision)
     {
+        if (!init)
+            return;
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
             FinishAgent();
+            rb.isKinematic = true;
+            GetComponent<Collider>().enabled = false;
+            init = false;
+            rb.velocity = Vector3.zero;
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
+        if (!init)
+            return;
+
         if (other.TryGetComponent(out Goal goal))
         {
-            if (carTrainer.IsNextGoal(goal.gameObject, currentGoal))
+            bool isNextGoal = carTrainer == null ? carPlayer.IsNextGoal(goal.gameObject, currentGoal) : carTrainer.IsNextGoal(goal.gameObject, currentGoal);
+            if (isNextGoal)
+            {
                 fitness++;
+                currentGoal++;
+                currentGoal %= numGoals;
+            }
         }
     }
 
@@ -100,6 +133,9 @@ public class CarAgent : MLAgent
 
     void OnDrawGizmos()
     {
+        if (!init)
+            return;
+
         float[] distances = GetRaycasts();
         for (int i = 0; i < numRaycasts; i++)
         {

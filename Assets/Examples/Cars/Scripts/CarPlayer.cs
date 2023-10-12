@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarTrainer : MLGeneticAlgTrainer
+public class CarPlayer : MLPlayer
 {
     [SerializeField] Transform startPos;
     [SerializeField] GameObject[] goals;
-
-    [SerializeField] float timeToLive = 10f;
 
     public bool IsNextGoal(GameObject goal, int currentGoal)
     {
@@ -22,11 +20,11 @@ public class CarTrainer : MLGeneticAlgTrainer
         return false;
     }
 
-    protected override MLAgent SpawnAgent(NeuralNetwork network, int agentNum)
+    protected override MLAgent SpawnAgent(NeuralNetwork network)
     {
         MLAgent newAgent = Instantiate(agentPrefab, startPos.position, startPos.rotation, transform);
         newAgent.SetNetwork(network);
-        ((CarAgent)newAgent).InitAgent(this, timeToLive, true, goals.Length);
+        ((CarAgent)newAgent).InitAgent(this, 0, false, goals.Length);
         newAgent.AgentFinished += HandleAgentFinished;
         return newAgent;
     }
