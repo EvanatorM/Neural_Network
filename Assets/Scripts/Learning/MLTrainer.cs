@@ -24,6 +24,10 @@ public class MLTrainer : MonoBehaviour
 
     protected int currentGeneration;
 
+    public event EventHandler<int> GenerationStarted;
+    public event EventHandler<float> HighestFitnessChanged;
+    public event EventHandler<float> HighestFitnessThisGenChanged;
+
     protected virtual void Start()
     {
         Initialize();
@@ -64,6 +68,7 @@ public class MLTrainer : MonoBehaviour
 
         Time.timeScale = gameSpeed;
         currentGeneration++;
+        GenerationStarted?.Invoke(this, currentGeneration);
         Debug.Log("Starting generation: " + currentGeneration);
 
         InitAgents();
@@ -86,6 +91,7 @@ public class MLTrainer : MonoBehaviour
         agents.Sort();
 
         bestFitnessThisGeneration = agents[0].fitness;
+        HighestFitnessThisGenChanged?.Invoke(this, bestFitnessThisGeneration);
 
         for (int i = 0; i < agents.Count; i++)
         {
@@ -100,7 +106,10 @@ public class MLTrainer : MonoBehaviour
         ModifyNetworks();
 
         if (bestFitnessThisGeneration > bestFitness)
+        {
             bestFitness = bestFitnessThisGeneration;
+            HighestFitnessChanged?.Invoke(this, bestFitness);
+        }
 
         StartGeneration();
     }
