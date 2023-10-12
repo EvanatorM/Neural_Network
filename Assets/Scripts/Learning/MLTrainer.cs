@@ -99,8 +99,8 @@ public class MLTrainer : MonoBehaviour
 
         ModifyNetworks();
 
-        if (agents[0].fitness > bestFitness)
-            bestFitness = agents[0].fitness;
+        if (bestFitnessThisGeneration > bestFitness)
+            bestFitness = bestFitnessThisGeneration;
 
         StartGeneration();
     }
@@ -108,7 +108,7 @@ public class MLTrainer : MonoBehaviour
     protected virtual void KillAgents()
     {
         foreach (MLAgent agent in agents)
-            Destroy(agent);
+            Destroy(agent.gameObject);
         agents.Clear();
     }
 
