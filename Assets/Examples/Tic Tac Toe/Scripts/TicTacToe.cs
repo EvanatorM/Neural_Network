@@ -9,26 +9,30 @@ public class TicTacToe : MonoBehaviour
     [SerializeField] Image[] boardUI;
     [SerializeField] Sprite xSprite, oSprite;
 
-    [SerializeField] bool player1Player, player2Player;
+    bool player1Player, player2Player;
 
     TicTacToeAgent agent1, agent2;
     int rounds;
 
     bool player1Turn = true;
 
-    private void Start()
-    {
-        InitTicTacToe(null, null, 100);
-    }
-
     public void InitTicTacToe(TicTacToeAgent agent1, TicTacToeAgent agent2, int rounds)
     {
         if (agent1 == null)
             player1Player = true;
+        else
+        {
+            this.agent1 = agent1;
+            agent1.InitAgent(this, 1);
+        }
         if (agent2 == null)
             player2Player = true;
-        this.agent1 = agent1;
-        this.agent2 = agent2;
+        else
+        {
+            this.agent2 = agent2;
+            agent2.InitAgent(this, 2);
+        }
+
         this.rounds = rounds;
 
         board = new int[9];
@@ -44,6 +48,7 @@ public class TicTacToe : MonoBehaviour
         rounds--;
         if (rounds <= 0)
         {
+            Debug.Log("Done games");
             if (!player1Player)
                 agent1.FinishTraining();
             if (!player2Player)
