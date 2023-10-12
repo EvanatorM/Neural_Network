@@ -564,7 +564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 647ebb60646db8a4c9979523d5910bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: 000000000000000001000000020000000000000001000000000000000200000000000000
+  board: 
   boardUI:
   - {fileID: 120709620}
   - {fileID: 1145558380}
@@ -577,6 +577,8 @@ MonoBehaviour:
   - {fileID: 365557837}
   xSprite: {fileID: 21300000, guid: b991e0f23f41e084d8c2c3201a272b98, type: 3}
   oSprite: {fileID: 21300000, guid: e7fe72290709b8d408f102ea283ef067, type: 3}
+  player1Player: 1
+  player2Player: 1
 --- !u!1 &358304032
 GameObject:
   m_ObjectHideFlags: 0
