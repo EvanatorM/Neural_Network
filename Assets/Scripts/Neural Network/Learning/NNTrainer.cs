@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class MLTrainer : MonoBehaviour
+public class NNTrainer : MonoBehaviour
 {
-    [Header("ML Trainer")]
+    [Header("NN Trainer")]
     [SerializeField] protected int[] neuralNetLayers;
     [SerializeField] protected int agentAmount = 2;
     [SerializeField] protected int maxGenerations = 1000;
     [SerializeField] protected float gameSpeed = 1f;
 
-    [SerializeField] protected MLAgent agentPrefab;
+    [SerializeField] protected NNAgent agentPrefab;
 
     [SerializeField] protected string networkSaveLocation;
 
     protected NeuralNetwork[] networks;
-    protected List<MLAgent> agents;
+    protected List<NNAgent> agents;
     protected List<bool> agentFinished;
     protected float bestFitness = 0;
     protected float bestFitnessThisGeneration = 0;
@@ -76,7 +76,7 @@ public class MLTrainer : MonoBehaviour
 
     protected virtual void InitAgents()
     {
-        agents = new List<MLAgent>();
+        agents = new List<NNAgent>();
         agentFinished = new List<bool>();
 
         for (int i = 0; i < networks.Length; i++)
@@ -116,7 +116,7 @@ public class MLTrainer : MonoBehaviour
 
     protected virtual void KillAgents()
     {
-        foreach (MLAgent agent in agents)
+        foreach (NNAgent agent in agents)
             Destroy(agent.gameObject);
         agents.Clear();
         agentFinished.Clear();
@@ -137,9 +137,9 @@ public class MLTrainer : MonoBehaviour
         }
     }
 
-    protected virtual MLAgent SpawnAgent(NeuralNetwork network, int agentNum)
+    protected virtual NNAgent SpawnAgent(NeuralNetwork network, int agentNum)
     {
-        MLAgent newAgent = Instantiate(agentPrefab, transform);
+        NNAgent newAgent = Instantiate(agentPrefab, transform);
         newAgent.SetNetwork(network);
         newAgent.AgentFinished += HandleAgentFinished;
         return newAgent;
@@ -147,7 +147,7 @@ public class MLTrainer : MonoBehaviour
 
     protected virtual void HandleAgentFinished(object sender, float e)
     {
-        int agentIndex = agents.IndexOf((MLAgent)sender);
+        int agentIndex = agents.IndexOf((NNAgent)sender);
 
         agentFinished[agentIndex] = true;
 

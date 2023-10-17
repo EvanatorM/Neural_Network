@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TicTacToeAgent : MLAgent
+public class TicTacToeAgent : NNAgent
 {
     TicTacToe ttt;
     int playerNum;

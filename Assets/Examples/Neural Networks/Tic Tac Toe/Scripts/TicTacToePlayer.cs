@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TicTacToePlayer : MLPlayer
+public class TicTacToePlayer : NNPlayer
 {
     [SerializeField] TicTacToe tttPrefab;
 
     List<TicTacToe> activeGames = new List<TicTacToe>();
 
-    protected override MLAgent SpawnAgent(NeuralNetwork network)
+    protected override NNAgent SpawnAgent(NeuralNetwork network)
     {
         TicTacToe newGame = Instantiate(tttPrefab, transform);
         TicTacToeAgent agent1 = (TicTacToeAgent)Instantiate(agentPrefab, newGame.transform);

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MLDisplay : MonoBehaviour
+public class NNDisplay : MonoBehaviour
 {
     [SerializeField] TMP_Text generationText;
     [SerializeField] TMP_Text highestGenText;
@@ -13,10 +13,10 @@ public class MLDisplay : MonoBehaviour
 
     void Awake()
     {
-        if (FindAnyObjectByType<MLTrainer>() == null)
+        if (FindAnyObjectByType<NNTrainer>() == null)
             return;
 
-        MLTrainer trainer = FindObjectOfType<MLTrainer>();
+        NNTrainer trainer = FindObjectOfType<NNTrainer>();
         trainer.GenerationStarted += HandleGenerationStarted;
         trainer.HighestFitnessChanged += HandleHighestFitnessChanged;
         trainer.HighestFitnessThisGenChanged += HandleHighestFitnessThisGenChanged;

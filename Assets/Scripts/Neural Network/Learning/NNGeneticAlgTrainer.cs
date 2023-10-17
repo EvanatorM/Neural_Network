@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MLGeneticAlgTrainer : MLTrainer
+public class NNGeneticAlgTrainer : NNTrainer
 {
     [Header("Genetic Algorithm")]
     [SerializeField, Range(0f, 1f)] protected float mutateRate;

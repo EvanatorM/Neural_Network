@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class MLPlayer : MonoBehaviour
+public class NNPlayer : MonoBehaviour
 {
-    [Header("ML Player")]
+    [Header("NN Player")]
 
-    [SerializeField] protected MLAgent agentPrefab;
+    [SerializeField] protected NNAgent agentPrefab;
 
     [SerializeField] protected string networkSaveLocation;
 
     protected NeuralNetwork network;
-    protected MLAgent agent;
+    protected NNAgent agent;
 
     protected int currentGeneration;
 
@@ -39,9 +39,9 @@ public class MLPlayer : MonoBehaviour
         Destroy(agent);
     }
 
-    protected virtual MLAgent SpawnAgent(NeuralNetwork network)
+    protected virtual NNAgent SpawnAgent(NeuralNetwork network)
     {
-        MLAgent newAgent = Instantiate(agentPrefab, transform);
+        NNAgent newAgent = Instantiate(agentPrefab, transform);
         newAgent.SetNetwork(network);
         newAgent.AgentFinished += HandleAgentFinished;
         return newAgent;

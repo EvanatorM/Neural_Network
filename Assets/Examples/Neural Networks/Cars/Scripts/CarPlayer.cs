@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarPlayer : MLPlayer
+public class CarPlayer : NNPlayer
 {
     [SerializeField] Transform startPos;
     [SerializeField] GameObject[] goals;
@@ -22,9 +22,9 @@ public class CarPlayer : MLPlayer
         return false;
     }
 
-    protected override MLAgent SpawnAgent(NeuralNetwork network)
+    protected override NNAgent SpawnAgent(NeuralNetwork network)
     {
-        MLAgent newAgent = Instantiate(agentPrefab, startPos.position, startPos.rotation, transform);
+        NNAgent newAgent = Instantiate(agentPrefab, startPos.position, startPos.rotation, transform);
         newAgent.SetNetwork(network);
         ((CarAgent)newAgent).InitAgent(this, 0, false, goals.Length, accelerateMode);
         newAgent.AgentFinished += HandleAgentFinished;

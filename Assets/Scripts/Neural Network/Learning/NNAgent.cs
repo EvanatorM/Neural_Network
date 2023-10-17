@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MLAgent : MonoBehaviour, IComparable<MLAgent>
+public class NNAgent : MonoBehaviour, IComparable<NNAgent>
 {
     public float fitness = 0;
 
@@ -26,7 +26,7 @@ public class MLAgent : MonoBehaviour, IComparable<MLAgent>
         return neuralNetwork;
     }
 
-    public int CompareTo(MLAgent other)
+    public int CompareTo(NNAgent other)
     {
         if (fitness > other.fitness)
             return -1;

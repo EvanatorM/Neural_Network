@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FindBallAgent : MLAgent
+public class FindBallAgent : NNAgent
 {
     [SerializeField] float speed = 10f;
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TicTacToeTrainer : MLGeneticAlgTrainer
+public class TicTacToeTrainer : NNGeneticAlgTrainer
 {
     [SerializeField] TicTacToe tttPrefab;
     [SerializeField] int roundsPerGeneration;
@@ -20,7 +20,7 @@ public class TicTacToeTrainer : MLGeneticAlgTrainer
     {
         yield return null;
 
-        agents = new List<MLAgent>();
+        agents = new List<NNAgent>();
         agentFinished = new List<bool>();
 
         bool player1First = Random.Range(0, 2) == 0 ? true : false;

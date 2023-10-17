@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FindBallTrainer : MLGeneticAlgTrainer
+public class FindBallTrainer : NNGeneticAlgTrainer
 {
     [SerializeField] FindBallEnvironment environment;
     [SerializeField] bool resetPlayerPos;
 
     List<FindBallEnvironment> env = new List<FindBallEnvironment>();
 
-    protected override MLAgent SpawnAgent(NeuralNetwork network, int agentNum)
+    protected override NNAgent SpawnAgent(NeuralNetwork network, int agentNum)
     {
         FindBallEnvironment newEnvironment = Instantiate(environment, transform);
         env.Add(newEnvironment);

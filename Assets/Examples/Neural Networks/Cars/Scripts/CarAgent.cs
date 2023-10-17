@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarAgent : MLAgent
+public class CarAgent : NNAgent
 {
     [SerializeField] float speed = 10f;
     [SerializeField] float acceleration = 10f;

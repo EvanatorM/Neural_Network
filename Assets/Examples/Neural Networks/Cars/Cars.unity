@@ -1287,7 +1287,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentPrefab: {fileID: 4216422040408303774, guid: c1c55e046816106409c2e35b7a82d911, type: 3}
-  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Cars\Network\car
+  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Neural
+    Networks\Cars\Network\car
   startPos: {fileID: 1072046470}
   goals:
   - {fileID: 2092328882}
@@ -1351,7 +1352,8 @@ MonoBehaviour:
   maxGenerations: 1000
   gameSpeed: 1
   agentPrefab: {fileID: 4216422040408303774, guid: c1c55e046816106409c2e35b7a82d911, type: 3}
-  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Cars\Network\car
+  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Neural
+    Networks\Cars\Network\car
   mutateRate: 0.1
   weightMutationStrength: 0.5
   biasMutationStrength: 1
@@ -1534,7 +1536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1161371318
 Transform:
   m_ObjectHideFlags: 0
@@ -1568,7 +1570,8 @@ MonoBehaviour:
   maxGenerations: 1000
   gameSpeed: 5
   agentPrefab: {fileID: 4216422040408303774, guid: c1c55e046816106409c2e35b7a82d911, type: 3}
-  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Cars\Network\car2
+  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Neural
+    Networks\Cars\Network\car2
   mutateRate: 0.1
   weightMutationStrength: 0.5
   biasMutationStrength: 1
@@ -1602,7 +1605,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1193345873
 Transform:
   m_ObjectHideFlags: 0
@@ -1632,7 +1635,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agentPrefab: {fileID: 4216422040408303774, guid: c1c55e046816106409c2e35b7a82d911, type: 3}
-  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Cars\Network\car2
+  networkSaveLocation: C:\Users\evan\Unity Projects\Neural_Network\Assets\Examples\Neural
+    Networks\Cars\Network\car2
   startPos: {fileID: 1471080008}
   goals:
   - {fileID: 2092328882}
