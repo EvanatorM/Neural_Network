@@ -23,14 +23,24 @@ public class CliffTrainer : MonoBehaviour
 
     void Start()
     {
+        mapScores = new int[map.GetLength(1), map.GetLength(0)];
         for (int y = 0; y < map.GetLength(0); y++)
         {
             for (int x = 0; x < map.GetLength(1); x++)
             {
                 if (map[map.GetLength(0) - y - 1, x] == -1)
+                {
                     tilemap.SetTile(new Vector3Int(x, y, 0), tiles[0]);
+                    mapScores[x, y] = -100;
+                }
                 else if (map[map.GetLength(0) - y - 1, x] == 0)
+                {
                     tilemap.SetTile(new Vector3Int(x, y, 0), tiles[1]);
+                    if (new Vector2Int(x, y) == endPos)
+                        mapScores[x, y] = 0;
+                    else
+                        mapScores[x, y] = -1;
+                }
             }
         }
 
