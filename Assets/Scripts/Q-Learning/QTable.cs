@@ -10,11 +10,6 @@ public class QActionSet
     {
         actionQValues = new float[numOutcomes];
     }
-
-    public int GetNumOutcomes()
-    {
-        return actionQValues.Length;
-    }
 }
 
 public class QTable<E>
